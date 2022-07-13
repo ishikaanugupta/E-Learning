@@ -1,3 +1,3 @@
-# E-Learning
+# 3D_Modelling_for_E-Learning
 
-3D Learning Environment
+E-Learning Platform for Medical Students
