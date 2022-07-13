@@ -1,3 +1,4 @@
 .stl filter=lfs diff=lfs merge=lfs -text
 static/img/datasets_learning/*.stl filter=lfs diff=lfs merge=lfs -text
 static/img/datasets_learning/HeadNeckPatient24/*.stl filter=lfs diff=lfs merge=lfs -text
+static/img/datasets_learning/HeadNeckPatient31/*.stl filter=lfs diff=lfs merge=lfs -text
