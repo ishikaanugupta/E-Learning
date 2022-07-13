@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<section id="showcase-inner" class="py-5 text-white">
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-md-12">
+          <h1 class="display-4">Testing Module</h1>
+          <p class="lead">We only see what we know. Testing lets you know more.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Breadcrumb -->
+  <section id="bc" class="mt-3">
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{% url 'index' %}">
+              <i class="fas fa-home"></i> Home</a>
+          </li>
+          <li class="breadcrumb-item active"> Testing Module</li>
+        </ol>
+      </nav>
+    </div>
+  </section>
+
+
+  <!-- Listings -->
+  {% include 'partials/_alerts.html' %}
+  <section id="listings" class="py-4">
+    <div class="container">
+      <div class="row">
+          <h2>Test yourself out theortically (MCQS Based Test)</h2>
+          
+      </div>
+      {% if grp_mcqs and mcqs %}
+
+      <div class="accordion">
+        {% for grp_mcq in grp_mcqs %}
+        <div class="accordion-item">
+          <div class="accordion-item-header" id="test_set_group">
+            {{ grp_mcq.test_set }}
+          </div>
+          <div class="accordion-item-body">
+            
+            <div class="accordion-item-body-content">
+              <a href="{% url 'testcases_mcqs' grp_mcq.test_set %}" class="btn btn-secondary btn-block">Take Test</a>
+                {% if user.is_authenticated %}
+                {% for user_mcq_s in user_mcq_score %}
+                {% if user_mcq_s.test_set_new == grp_mcq.test_set %}
+                <a href="#inquiryModal-{{ grp_mcq.test_set_id }}"  data-toggle="modal" data-target="#inquiryModal-{{ grp_mcq.test_set_id }}" class="btn btn-primary btn-block">Score Card</a>       
+
+                <div class="modal fade" id="inquiryModal-{{ grp_mcq.test_set_id }}" role="dialog" >
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h2 class="modal-title" id="inquiryModalLabel">Score Card </h5>
+                        <button type="button" class="close" data-dismiss="modal">
+                          <span>&times;</span>
+                        </button>
+                      </div>
+
+                      <div class="modal-body">
+                        <form>
+                          <div class="form-group">
+                            <label for="message" class="col-form-label">Your score: </label>
+
+                            <h3 id = "score">{{ user_mcq_s.score }}/5 </h3>
+                           
+                          </div>
+                          <hr>
+                        </form>
+                        
+                      </div>
+                    </div>
+                  </div>
+                </div>  
+
+                {% endif %}
+                {% endfor %}
+            {% endif%}       
+                               
+            </div>
+          </div>
+        </div>
+
+
+        {% endfor %}
+        
+
+        
+        
+      </div>
+    </div>
+    
+    {% endif %}
+
+
+  </section>
+
+  <section id="work" class="bg-info text-white text-center">
+    <h2 class="display-4">Practical Test </h2>
+    <h4>Get yourself to explore out on other side by testing your diagnosis from 3D models!</h4>
+    <hr>
+    <a href="{% url 'testcases_diagnosis' %}" class="btn btn-secondary text-white btn-lg">Diagnose the disease</a>
+  </section>
+  
+{% endblock %}

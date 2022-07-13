@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+
+
+<div class = "flex-end fixed-bottom">
+    <a href="{% url 'lessons_patientcases' lessons_model.disease_id.disease_id %}" class="btn btn-secondary " style="margin: 10px 50px 20px;">Go ahead</a>
+</div>
+<script type="text/javascript" src="https://unpkg.com/@babel/polyfill@7.0.0/dist/polyfill.js"></script>
+<script type="text/javascript" src="https://unpkg.com/vtk.js"></script>
+<script>
+
+    var fullScreenRenderer = vtk.Rendering.Misc.vtkFullScreenRenderWindow.newInstance();
+    var actor_bone         = vtk.Rendering.Core.vtkActor.newInstance();
+    var actor_skin         = vtk.Rendering.Core.vtkActor.newInstance();
+    var actor_pet          = vtk.Rendering.Core.vtkActor.newInstance();
+    var reader_bones       = vtk.IO.Geometry.vtkSTLReader.newInstance();
+    var reader_skin        = vtk.IO.Geometry.vtkSTLReader.newInstance();
+    var reader_pet         = vtk.IO.Geometry.vtkSTLReader.newInstance();
+    var mapper_bones       = vtk.Rendering.Core.vtkMapper.newInstance({ scalarVisibility: false });
+    var mapper_skin        = vtk.Rendering.Core.vtkMapper.newInstance({ scalarVisibility: false });
+    var mapper_pet         = vtk.Rendering.Core.vtkMapper.newInstance({ scalarVisibility: false });
+
+    var renderer = fullScreenRenderer.getRenderer();
+    var renderWindow = fullScreenRenderer.getRenderWindow();
+
+    actor_bone.setMapper(mapper_bones);
+    actor_bone.getProperty().setColor(1,1,1); 
+    actor_bone.getProperty().setSpecular(true);                           
+    actor_bone.getProperty().setSpecularPower(20);
+    mapper_bones.setInputConnection(reader_bones.getOutputPort());
+
+    actor_skin.setMapper(mapper_skin);
+    actor_skin.getProperty().setColor(1, 0.8, 0.6); 
+    actor_skin.getProperty().setOpacity(0.6);
+    mapper_skin.setInputConnection(reader_skin.getOutputPort());
+
+    actor_pet.setMapper(mapper_pet);
+    actor_pet.getProperty().setColor(1, 0, 0);   
+    mapper_pet.setInputConnection(reader_pet.getOutputPort());
+
+    function updateModel_bone() {                                
+        renderer.addActor(actor_bone);             
+        renderer.resetCamera();                
+        renderWindow.render();
+    }
+
+    function updateModel_pet() {                
+        renderer.addActor(actor_pet);
+        renderer.resetCamera();                
+        renderWindow.render();
+    }
+
+    function updateModel_skin() {                
+        renderer.addActor(actor_skin);             
+        renderer.resetCamera();                
+        renderWindow.render();
+    }            
+    
+
+    reader_bones.setUrl( "{% get_media_prefix %}/datasets_learning/{{ lessons_model.filename }}/bone.stl", {binary: true}).then(updateModel_bone);
+    reader_skin.setUrl( "{% get_media_prefix %}/datasets_learning/{{ lessons_model.filename }}/skin.stl", {binary: true}).then(updateModel_skin);
+    reader_pet.setUrl( "{% get_media_prefix %}/datasets_learning/{{ lessons_model.filename }}/pet.stl", {binary: true}).then(updateModel_pet);
+
+</script>
+<div>
+    {{ lessons_model.filename }}
+</div>
+
+
+
+{% endblock %}

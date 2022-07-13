@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<section id="showcase-inner" class="py-5 text-white">
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-md-12">
+          <h1 class="display-4">User Dashboard</h1>
+          <p class="lead">Have a look at the progress made!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br>
+
+  {% include 'partials/_alerts.html' %}
+
+  <section id="dashboard" class="py-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h2>Welcome {{ user.first_name }}</h2>
+          <p>Track your progress here.</p>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Modules</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td width="100">1.</td>
+                <td width="250">Learning Module</td>
+               <!--- <td>
+                  <a class="btn btn-light" href="#">View Listing</a>
+                </td>-->
+                <td>
+                    
+                        <!--<div class="progress-bar progress-bar-striped bg-success progress-bar w-{{ lm_perc }}" style="width:{{ lm_perc }}%;" role="progressbar"  aria-valuenow="{{ lm_perc }}" aria-valuemin="0" aria-valuemax="100">{{ lm_perc }} %</div>-->
+                        <progress id="file" style="border-radius:10px;background-color:aqua; width: 800px; content: '{{ lm_perc }}%';" class = "progress-bar progress-bar-striped bg-success progress-bar" max="100" value="{{ lm_perc }}"> {{ lm_perc }}% </progress>
+                        
+                    
+                </td>
+              </tr>            
+              <tr>
+                <td width="100"></td>
+                <td width="250">Theory</td>
+               
+                <td>                                    
+                    
+                      <progress id="file" style="width: 800px; content: '{{ lm_th_perc }}%';" class = "progress-bar progress-bar-striped bg-success progress-bar" max="100" value="{{ lm_th_perc }}"> {{ lm_th_perc }}% </progress>
+                    
+                </td>
+              </tr>
+              <tr>
+                <td width="100"></td>
+                <td width="250">Patient Cases</td>
+               
+                <td>
+                    
+                      <progress id="file" style="width: 800px; content: '{{ lm_pc_perc }}%';" class = "progress-bar progress-bar-striped bg-success progress-bar" max="100" value="{{ lm_pc_perc }}"> {{ lm_pc_perc }}% </progress>
+                    
+                </td>
+              </tr>
+              <tr>
+                <td width="100">2.</td>
+                <td width="250">Testing Module:MCQ Tests</td>
+                
+                <td>
+                  <progress id="file" style="width: 800px; content: '{{ tm_perc }}%';" class = "progress-bar progress-bar-striped bg-success progress-bar" max="100" value="{{ tm_perc }}"> {{ tm_perc }}% </progress>
+                </td>
+              </tr>
+              
+          
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {% endblock %}

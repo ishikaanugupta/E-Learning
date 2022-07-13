@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<section id="showcase-inner" class="py-5 text-white">
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-md-12">
+        <h1 class="display-4">Patient Test Cases</h1>
+        <p class="lead">Learning requires actual work!</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <!-- Breadcrumb -->
+  <section id="bc" class="mt-3">
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{% url 'index' %}">
+              <i class="fas fa-home"></i> Home</a>
+          </li>
+          <li class="breadcrumb-item">
+            <a href="{% url 'lessons' %}">Learning Module</a>
+          </li>
+          <li class="breadcrumb-item active"> Patient Cases</li>
+        </ol>
+      </nav>
+    </div>
+  </section>
+
+  {% if lessons_pcs %}
+
+  {% for lessons_pc in lessons_pcs %}
+
+  <section id="listings" class="py-4">
+    <div class="container">
+      <div class="row">
+          <h2>Patient Test Case {{ lessons_pc.testcase }} for {{ lessons_pc.disease_id.disease_type }} :</h2>
+          
+      </div>
+        
+        <div class="row mb-5 fields">
+          <div class="col-md-6">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item text-primary">
+                 Gender      :
+                <span class="float-right">{{ lessons_pc.gender }}</span>
+              </li>
+              <li class="list-group-item text-primary">
+                Age:
+                <span class="float-right">{{ lessons_pc.age }}</span>
+              </li>
+              <li class="list-group-item text-primary">
+                Prior Malignancies:
+                <span class="float-right">{{ lessons_pc.prior_malignancies }}</span>
+              </li>
+              <li class="list-group-item text-primary">
+                Primary Tumor Site:
+                <span class="float-right">{{ lessons_pc.primary_tumor_site }}
+                </span>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-6">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item text-primary">
+                Alcohol History:
+                <span class="float-right">{{ lessons_pc.alcohol_history }}</span>
+              </li>
+              <li class="list-group-item text-primary">
+                Smoking History:
+                <span class="float-right">{{ lessons_pc.smoking_history }}
+                </span>
+              </li>
+              <li class="list-group-item text-primary">
+                Cancer Type:
+                <span class="float-right">{{ lessons_pc.cancer_type }}</span>
+              </li>
+              <li class="list-group-item text-primary">
+                Basic Cancer Type:
+                <span class="float-right">{{ lessons_pc.basic_cancer_type }}
+                </span>
+              </li>
+              
+
+
+            </ul>
+          </div>
+        </div>
+        <a href="{% url 'lessons_model' lessons_pc.disease_id.disease_id lessons_pc.model_id%}" class="btn btn-secondary btn-block">Patient Model</a>
+        <br>
+      
+      </div>
+      
+    </div> 
+    
+    {% endfor %}
+
+    {% else %}
+
+    <h1>No Patient Cases Available</h1>
+
+    {% endif %}
+  </section>
+
+
+{% endblock %}
+
+
+    

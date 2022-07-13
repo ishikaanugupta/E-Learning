@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load mathfilters %}
+
+{% block content %}
+
+<div class="card text-center">
+    <div class="card-header">
+      <strong>Your Score</strong>
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">{{ corr }} / 5</h5>
+      <p class="card-text">Wrong attempted = {{ 5|sub:corr }}</p>
+      <a href="{% url 'testcases' %}" class="btn btn-primary">Go back</a>
+    </div>
+    <div >
+        <img src="{% static 'img/testing.gif' %}" style="width:auto;height:150px;" alt="">
+    </div>
+  </div>
+
+{% endblock %}

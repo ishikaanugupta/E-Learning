@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<section id="showcase-inner" class="py-5 text-white">
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-md-12">
+          <h1 class="display-4">Learning Module</h1>
+          <p class="lead">Never stop learning because life never stops teaching.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Breadcrumb -->
+  <section id="bc" class="mt-3">
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{% url 'index' %}">
+              <i class="fas fa-home"></i> Home</a>
+          </li>
+          <li class="breadcrumb-item active"> Learning Module</li>
+        </ol>
+      </nav>
+    </div>
+  </section>
+  <!-- Listings -->
+  {% include 'partials/_alerts.html' %}
+  <!--{% if progress %}
+    {% for prog in progress %}
+    {{ prog.name }}
+    {{ prog.theory_prog }}
+  {% endfor %}
+  {% endif %}-->
+  <section id="listings" class="py-4">
+    <div class="container">
+      <div class="row">
+
+        {% if lessons %}
+        {% for lesson in lessons %}
+        <!-- Listing 1 -->
+        <div class="col-md-6 col-lg-4 mb-4">
+          <div class="card listing-preview">
+            <img class="card-img-top" src="{{ lesson.image_organ1.url }}" width='250'height='330'alt="">
+            <!--<div class="card-img-overlay">
+              <h2>
+                <span class="badge badge-secondary text-white"></span>
+              </h2>
+            </div>-->
+            <div class="card-body">
+              <div class="listing-heading text-center">
+                <h4 class="text-primary">{{ lesson.disease_type }}</h4>
+                <!--<p>
+                  <i class="fas fa-map-marker text-secondary"></i> </p>-->
+              </div>
+              <hr>
+              
+              
+              <p class="text-primary">{{ lesson.disease_line }}</p>
+                <!--<div class="row py-2 text-secondary">
+                  <div class="col-6">
+                    <i class="fas fa-th-large"></i> </div>
+                  <div class="col-6">
+                    <i class="fas fa-car"></i></div>
+                </div>-->
+                <hr>
+                
+                
+                
+                <a href="{% url 'lessons_theory' lesson.disease_id %}" class="btn btn-primary btn-block">Theory</a>
+                <a href="{% url 'lessons_patientcases' lesson.disease_id %}" class="btn btn-primary btn-block">Patient Cases</a>
+            </div>
+          </div>
+         </div>
+
+        {% endfor %}
+
+        {% else %}
+
+        <h1>No Lessons Available</h1>
+
+        {% endif %}
+
+  </section>
+{% endblock %}

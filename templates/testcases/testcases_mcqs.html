@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<section id="showcase-inner" class="py-5 text-white">
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-md-12">
+          <h1 class="display-4">MCQ Test</h1>
+          <p class="lead">Sometimes the choices confuse you, not the question itself.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Breadcrumb -->
+  <section id="bc" class="mt-3">
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{% url 'index' %}">
+              <i class="fas fa-home"></i> Home</a>
+          </li>
+          <li class="breadcrumb-item">
+            <a href="{% url 'testcases' %}">Testing Module</a>
+          </li>
+          <li class="breadcrumb-item active"> MCQ</li>
+        </ol>
+      </nav>
+    </div>
+  </section>
+
+  <section id="about" class="py-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          {% if mcqs %}
+          {% for mcq in mcqs %}
+          
+        <form id = "test_mcq" action="{% url 'submit_mcq' %}" method="POST"  >
+            {% csrf_token %}
+          <p ><strong>{{ mcq.ques_num }}. </strong>{{ mcq.ques_txt }}</p>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="{{ mcq.ques_id }}" value="A">
+            <label class="form-check-label" for="{{ mcq.ques_id }}" >
+              {{ mcq.opt_A }}
+              
+            </label>
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="{{ mcq.ques_id }}" value="B">
+            <label class="form-check-label" for="{{ mcq.ques_id }}" >
+              {{ mcq.opt_B }}
+              
+            </label>
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="{{ mcq.ques_id }}" value="C">
+            <label class="form-check-label" for="{{ mcq.ques_id }}" >
+              {{ mcq.opt_C }}
+              
+            </label>
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="{{ mcq.ques_id }}" value="D">
+            <label class="form-check-label" for="{{ mcq.ques_id }}" >
+              {{ mcq.opt_D }}
+              
+            </label>
+          </div>
+          <br>
+
+          {% endfor %}
+
+          <input type="hidden"  name="user_id" value = "{{ request.user.id }}" />
+
+          <input type="submit"/>
+
+        </form>
+
+        </div>
+
+
+    {% else %}
+
+    <h1>No MCQS Available</h1>
+
+    {% endif %}
+  </section>
+{% endblock %}

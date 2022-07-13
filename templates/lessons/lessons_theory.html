@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<section id="showcase-inner" class="py-5 text-white">
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-md-12">
+          <h1 class="display-4">Theortical Knowledge</h1>
+          <p class="lead">The best way to start is by learning basic facts.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Breadcrumb -->
+  <section id="bc" class="mt-3">
+    <div class="container" >
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{% url 'index' %}">
+              <i class="fas fa-home"></i> Home</a>
+          </li>
+          <li class="breadcrumb-item">
+            <a href="{% url 'lessons' %}">Learning Module</a>
+          </li>
+          <li class="breadcrumb-item active"> Theory</li>
+        </ol>
+      </nav>
+    </div>
+  </section>
+
+  
+
+  <section id="about" class="py-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8">
+          <h2>{{ lessons.disease_type }}</h2>
+          <p class="lead"></p> 
+          <img src="{{ lessons.image_organ2.url }}" class=img width='200'height='400' alt="">
+          <p class="mt-4">{{ lessons.theory }}</p>
+        </div>
+        <div class="col-md-4">
+          <div class="card">
+            <img class="card-img-top" src="{{ lessons.image_prevention.url }}" alt="Prevention Measures">
+            <div class="card-body">
+              <h5 class="card-title">How to prevent it?</h5>
+              <h6 class="text-secondary">The Dos and Don'ts</h6>
+              <p class="card-text">{{ lessons.do_and_dont }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% if user.is_authenticated %}
+      <div class="flex-end">
+        <a href="{% url 'lessons_patientcases' lessons.disease_id %}" class="btn btn-secondary " >Go ahead</a>
+        <!--<input type="hidden" name="user_id" value="{{ user.id }}">-->
+        
+      </div>
+      {% endif %}
+    </div> 
+  </section>
+{% endblock %}

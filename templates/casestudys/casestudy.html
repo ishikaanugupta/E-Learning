@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<section id="showcase-inner" class="py-5 text-white">
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-md-12">
+          <h1 class="display-4">Visualising Module</h1>
+          <p class="lead">Everything you can imagine is real!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="work" class="bg-light text-black text-center">
+    <h2 class="display-4">Upload DICOM Files </h2>
+    <h4>Get a customised 3D-model upon uploading your own DICOM files!</h4>
+    <hr>
+<!--    <a href="{% url 'testcases_diagnosis' %}" class="btn btn-primary text-white btn-lg">Choose file</a>
+    <a href="{% url 'testcases_diagnosis' %}" class="btn btn-primary text-white btn-lg">Submit</a>-->
+    <form action= "{% url 'casestudys_model' %}" method='POST' enctype="multipart/form-data">
+      {% csrf_token %}
+    <!--  <input type = "text" name="filename" placeholder="Enter the folder name" /> -->
+      <input type="file" id="file_input" name="file_field" webkitdirectory directory />
+      <input type="text" id="directories" name="directories" hidden />
+
+      {% if user.is_authenticated %}
+      <input type="hidden"  name="user_id" value = "{{ request.user.id }}" />
+      {% else %}
+      <input type="hidden"  name="user_id" value = "0" />
+      {% endif %}
+
+      <input type="submit"/>
+  </form>
+  </section>
+{% endblock %}
