@@ -17,3 +17,4 @@ media/datasets_testing/BreastPatient4/*.stl filter=lfs diff=lfs merge=lfs -text
 media/datasets_testing/BreastPatient5/*.stl filter=lfs diff=lfs merge=lfs -text
 media/datasets_testing/HeadNeckPatient13/*.stl filter=lfs diff=lfs merge=lfs -text
 media/datasets_testing/HeadNeckPatient41/*.stl filter=lfs diff=lfs merge=lfs -text
+media/dicom/guest/*.stl filter=lfs diff=lfs merge=lfs -text
